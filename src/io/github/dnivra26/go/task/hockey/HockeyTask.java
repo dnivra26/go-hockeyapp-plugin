@@ -6,13 +6,10 @@ import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.DefaultGoApiResponse;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import org.apache.commons.io.IOUtils;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,24 +23,35 @@ public class HockeyTask implements GoPlugin{
 
     @Override
     public GoPluginApiResponse handle(GoPluginApiRequest goPluginApiRequest) throws UnhandledRequestTypeException {
-        if ("view".equals(goPluginApiRequest.requestName())) {
-            return handleTaskView();
+        if("configuration".equals(goPluginApiRequest.requestName())){
+            return buildTaskConfiguration();
+        }
+        else if ("view".equals(goPluginApiRequest.requestName())) {
+            return buildTaskTemplate();
+        }
+        else if ("validate".equals(goPluginApiRequest.requestName())) {
+            return validateRequest(goPluginApiRequest);
+        }
+        else if ("execute".equals(goPluginApiRequest.requestName())) {
+            return executeRequest(goPluginApiRequest);
         }
         return null;
     }
 
-    private GoPluginApiResponse handleTaskView() {
-        int responseCode = DefaultGoApiResponse.SUCCESS_RESPONSE_CODE;
-        Map view = new HashMap();
-        view.put("displayValue", "Hockey");
-        try {
-            view.put("template", IOUtils.toString(getClass().getResourceAsStream("/views/view.html"), "UTF-8"));
-        } catch (Exception e) {
-            responseCode = DefaultGoApiResponse.INTERNAL_ERROR;
-            String errorMessage = "Failed to find template: " + e.getMessage();
-            view.put("exception", errorMessage);
-        }
-        return createResponse(responseCode, view);
+    private GoPluginApiResponse executeRequest(GoPluginApiRequest goPluginApiRequest) {
+        return null;
+    }
+
+    private GoPluginApiResponse validateRequest(GoPluginApiRequest goPluginApiRequest) {
+        return null;
+    }
+
+    private GoPluginApiResponse buildTaskConfiguration() {
+        return null;
+    }
+
+    private GoPluginApiResponse buildTaskTemplate() {
+       return null;
     }
 
     private GoPluginApiResponse createResponse(int responseCode, Map body) {
