@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<go-plugin id="hockeyappplugin" version="1">
+    <about>
+        <name>HockeyApp Plugin</name>
+        <version>1.0.1</version>
+        <target-go-version>14.3</target-go-version>
+        <description>Plugin to help publish artifacts to hockeyapp</description>
+        <vendor>
+            <name>Arvind Thangamani</name>
+            <url>dnivra26.github.io</url>
+        </vendor>
+        <target-os>
+            <value>Linux</value>
+            <value>Windows</value>
+            <value>OSX</value>
+        </target-os>
+    </about>
+</go-plugin>
